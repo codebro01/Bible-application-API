@@ -1,10 +1,6 @@
-import pkg from 'pg'
-const { Pool } = pkg
+const {connect} = require('mongoose');
 
-export const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'pgsql_tut',
-  password: '@WebStacker623',
-  port: 5432,
-})
+
+export const connectDB = async () => {
+  return await connect(process.env.MONGO_URI)
+}

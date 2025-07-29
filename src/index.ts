@@ -1,48 +1,51 @@
+
 require('dotenv').config()
-const { nanoid } = require('nanoid')
+const { connectDB } =  require("@src/db");
+import type {Request, Response} from 'express'
+const express =  require('express');
+const app = express();
+const PORT = process.env.PORT || 3500;
+const cors = require('cors');
+const customErrorHandler = require('@src/middlewares/errorMiddleware');
+const notFoundMiddleware = require('@src/middlewares/notFoundMiddleware');
 
-const { pool } = require('@src/db/index')
 
-type UserType = {
-  id: string
-  username: string
-  email: string
-  password: string
-}
 
-console.log(process.env.PG_URI)
 
-const createUser = async ({ username, email, password }: Omit<UserType, 'id'>): Promise<UserType> => {
-  const result = await pool.query(
-    `INSERT INTO users(username, email, password) VALUES ($1, $2, $3) RETURNING *`,
-    [username, email, password]
-  )
+app.use(cors({
+  origin: ['http://localhost:3500'],
+  credentials: true,
+  methods: ['POST', 'PATCH', 'DELETE', 'GET']
+}));
 
-  // Explicitly cast the row to your UserType
-  return result.rows[0] as UserType
-}
 
-const getAllUsers = async (): Promise<UserType[]> => {
-  const getUsers = await pool.query('SELECT * from users')
-  return getUsers.rows as UserType[]
-}
 
-const run = async () => {
+
+// ! routes 
+
+app.get('/',(req: Request, res: Response) => {
+  res.send('Welcome to church application api')
+})
+// app.use('/dashboard', )
+// app.use('/', )
+
+
+app.use(notFoundMiddleware)
+app.use(customErrorHandler)
+
+
+
+
+const connection = async () => {
   try {
-    const newUser = await createUser({
-      username: 'codebro',
-      email: 'codebro@abc.com',
-      password: '123456'
+    await connectDB();
+  
+    app.listen(PORT, () => {
+      console.log('App connected on PORT: ' + PORT + ' 🚀')
     })
-
-    console.log('Created user:', newUser)
-  } catch (err) {
-    console.error('Error creating user:', err)
+  } catch (error) {
+    console.log(error)
   }
 }
-run()
-// getAllUsers().then((user) => console.log(user))
 
-const id = nanoid()
-
-console.log(id)
+connection();
