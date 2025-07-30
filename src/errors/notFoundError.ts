@@ -1,5 +1,5 @@
 export = {}
-const { CustomApiError } = require('@src/errors/customApiError')
+const CustomApiError = require('@src/errors/customApiError')
 
 const { StatusCodes } = require('http-status-codes')
 

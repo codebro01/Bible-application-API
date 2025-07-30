@@ -6,4 +6,12 @@ export type PayloadType = {
 }
 
 
+export type CreateUserPayload = {
+  username: string
+  email: string
+  password: string
+  role?: string[]
+  verified?: boolean
+}
+
 

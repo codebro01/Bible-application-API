@@ -13,9 +13,9 @@ export interface UserDocument extends Document {
 
 const UserSchema = new mongoose.Schema(
   {
-    name: {
+    username: {
       type: String,
-      required: [true, 'Name is required'],
+      required: [true, 'username is required'],
       minlength: [3, 'Name must be at least 3 characters'],
       maxlength: [50, 'Name must not exceed 50 characters'],
       trim: true,
