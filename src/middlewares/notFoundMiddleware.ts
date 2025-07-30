@@ -1,3 +1,11 @@
-import type { Request, Response } from 'express'
-export const errorMiddleware = (req: Request, res: Response) =>
-  res.status(404).json('Route not found')
+import type { NextFunction, Request, Response } from 'express'
+ const errorMiddleware = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  res.status(404).json('Route not found');
+  return next()
+}
+
+module.exports = errorMiddleware

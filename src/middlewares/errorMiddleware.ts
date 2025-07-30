@@ -1,4 +1,4 @@
-export = {}
+// export = {}
 const { StatusCodes } =  require('http-status-codes');
 import type { Response, Request, NextFunction } from 'express'
 
@@ -52,7 +52,8 @@ interface CustomError extends Error {
    // console.error("Error encountered:", err);
 
    // Send the error response
-   return res.status(errObj.statusCode).json({ message: errObj.message })
+    res.status(errObj.statusCode).json({ message: errObj.message });
+    return next()
  }
 
 
