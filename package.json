@@ -14,7 +14,7 @@
     "start": "node dist/src/index.js"
   },
   "_moduleAliases": {
-    "@src": "dist/src"
+    "@src": "./dist/src"
   },
   "keywords": [],
   "author": "",
@@ -37,6 +37,7 @@
     "http-status-codes": "^2.3.0",
     "jsonwebtoken": "^9.0.2",
     "mammoth": "^1.9.1",
+    "module-alias": "^2.2.3",
     "mongoose": "^8.16.5",
     "multer": "^2.0.2",
     "tsconfig-paths": "^4.2.0",
