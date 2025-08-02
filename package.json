@@ -10,7 +10,11 @@
     "migrate:dev": "knex migrate:latest --env development",
     "migrate:staging": "knex migrate:latest --env staging",
     "migrate:prod": "knex migrate:latest --env production",
-    "build": "tsc"
+    "build": "tsc",
+    "start": "node dist/src/index.js"
+  },
+  "_moduleAliases": {
+    "@src": "dist/src"
   },
   "keywords": [],
   "author": "",
