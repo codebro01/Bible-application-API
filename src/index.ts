@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 3500
 const cors = require('cors')
 const customErrorHandler = require('@src/middlewares/errorMiddleware')
 const notFoundMiddleware = require('@src/middlewares/notFoundMiddleware')
-const authRouter = require('@src/routes')
+const {authRouter, bibleRouter} = require('@src/routes')
 
 app.use(
   cors({
@@ -26,7 +26,9 @@ app.get('/', (req: Request, res: Response) => {
   res.send('Welcome to church application api')
 })
 // app.use('/dashboard', )
+console.log(typeof bibleRouter)
 app.use('/api/v1/auth', authRouter )
+app.use('/api/v1/bible', bibleRouter )
 
 app.use(notFoundMiddleware)
 app.use(customErrorHandler)

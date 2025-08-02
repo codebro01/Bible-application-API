@@ -1,10 +1,10 @@
-export = {};
 const  CustomApiError = require('@src/errors/customApiError')
 
 const { StatusCodes } = require('http-status-codes')
 
 
-module.exports = class BadRequestError extends CustomApiError {
+
+module.exports =  class BadRequestError extends CustomApiError {
   constructor(message: string) {
     super(message)
     this.statusCode = StatusCodes.BAD_REQUEST
@@ -13,3 +13,6 @@ module.exports = class BadRequestError extends CustomApiError {
     Object.setPrototypeOf(this, new.target.prototype)
   }
 }
+
+
+

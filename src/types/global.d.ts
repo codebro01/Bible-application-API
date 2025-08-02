@@ -14,4 +14,42 @@ export type CreateUserPayload = {
   verified?: boolean
 }
 
+export type bibleUploadPayloadType = {
+  _id: string, 
+  user: string
+  book: string
+  chapter: string
+  verse: string
+  text: string
+  version: string
+}
+
+export interface VerseType {
+  number: number
+  text: string
+}
+
+export interface ChapterType {
+  number: number
+  verses: Verse[]
+}
+
+export interface ParsedBibleType {
+  book: string
+  chapters: Chapter[]
+  version: string
+}
+
+export type BufferedDocFile = {
+  fieldname: string
+  originalname: string
+  encoding: string
+  mimetype: string
+  buffer: Buffer
+  size: number
+}
+
+export type BibleUploadResponseFromServicesType = {
+  book:string
+}
 

@@ -1,4 +1,4 @@
-const { verifyJWT, createJWT } = require('@src/helpers/jwt.js')
+const { verifyJWT, createJWT } = require('@src/helpers/jwt')
 const { NotAuthenticatedError, BadRequestError } = require('@src/errors/index')
 import type { Response, Request, NextFunction } from 'express'
 import type { PayloadType } from '@src/types/global';
@@ -14,7 +14,7 @@ const authMiddleware = (
   next: NextFunction
 ) => {
   const { token } = req?.cookies
-  console.log(req.headers)
+  console.log('token', token)
   if (!token)
     return next(new NotAuthenticatedError('No Token provided', 'UNAUTHORIZED'))
 
@@ -26,7 +26,9 @@ const authMiddleware = (
         new NotAuthenticatedError('Invalid Token provided', 'UNAUTHORIZED')
       )
     const { username, email, role, id } = decoded
-    req.user = { username, email, role, id }
+    req.user = { username, email, role, id };
+
+    console.log('req.user', req.user)
     return next()
   } catch (err) {
     return next(

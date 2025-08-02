@@ -1,9 +1,8 @@
-export = {}
 const CustomApiError = require('@src/errors/customApiError')
 
 const { StatusCodes } = require('http-status-codes')
 
-class NotAuthenticatedError extends CustomApiError {
+module.exports = class NotAuthenticatedError extends CustomApiError {
   constructor(message: string) {
     super(message)
     this.statusCode = StatusCodes.NOT_FOUND
@@ -11,6 +10,3 @@ class NotAuthenticatedError extends CustomApiError {
     Object.setPrototypeOf(this, new.target.prototype)
   }
 }
-
-module.exports = {NotAuthenticatedError}
-
