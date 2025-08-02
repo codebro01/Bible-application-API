@@ -1,6 +1,6 @@
-const CustomApiError = require('@src/errors/customApiError')
+// const CustomApiError = require('@src/errors/customApiError')
 
-const { StatusCodes } = require('http-status-codes')
+// const { StatusCodes } = require('http-status-codes')
 
 module.exports = class NotAuthenticatedError extends CustomApiError {
   constructor(message: string) {
