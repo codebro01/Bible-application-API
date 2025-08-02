@@ -1,10 +1,11 @@
+import type { Response, Request } from 'express'
+
 export type PayloadType = {
-  username: string 
+  username: string
   email: string
   role: string
   id: string
 }
-
 
 export type CreateUserPayload = {
   username: string
@@ -15,12 +16,12 @@ export type CreateUserPayload = {
 }
 
 export type bibleUploadPayloadType = {
-  _id: string, 
+  _id: string
+  text: string
   user: string
   book: string
-  chapter: string
-  verse: string
-  text: string
+  chapter: number
+  verse: number
   version: string
 }
 
@@ -50,6 +51,9 @@ export type BufferedDocFile = {
 }
 
 export type BibleUploadResponseFromServicesType = {
-  book:string
+  book: string
 }
 
+export interface CustomReqType extends Request {
+  user: PayloadType
+}

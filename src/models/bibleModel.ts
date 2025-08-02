@@ -1,3 +1,4 @@
+import { version } from "mongoose"
 
 const mongoose = require('mongoose')
 
@@ -29,6 +30,9 @@ const bibleSchema = new mongoose.Schema({
     trim: true,
   },
 })
+
+bibleSchema.index({ text: 'text', chapter: 1, version: 1 })
+
 const Bible = mongoose.model('Bible', bibleSchema)
 
 module.exports = Bible

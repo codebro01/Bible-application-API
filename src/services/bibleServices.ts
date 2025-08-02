@@ -4,6 +4,7 @@ import type {
   PayloadType,
 } from '@src/types/global'
 import { text } from 'express'
+import { version } from 'mongoose'
 import { number } from 'zod'
 const Bible = require('@src/models/bibleModel')
 const ParseBibleDocx = require('@src/helpers/parsedBibleDocx')
@@ -22,7 +23,6 @@ class BibleServices {
     payload: BufferedDocFile,
     user: PayloadType
   ): Promise<bibleUploadPayloadType[]> => {
-    console.log(payload)
     const parsedBibleDocx = await ParseBibleDocx(payload.buffer)
     const biblePatchments = []
     const bookTitle = parsedBibleDocx.book
@@ -61,31 +61,59 @@ class BibleServices {
     return uploadedBible
   }
 
-  editTranslations = async (
+  editBible = async (
     filter: Omit<bibleUploadPayloadType, '_id' | 'user' | 'text'>,
-    newData: {
-      text?: string
-      chapter?: number
-      verse?: number
-      version?: string
-    }
+    newData: Partial<bibleUploadPayloadType>
   ): Promise<bibleUploadPayloadType> => {
+    // console.log('filters first', filter)
+    // const {version, chapter, verse, book} = filter
+    let updateBasket: Partial<bibleUploadPayloadType> = {}
+
+    if (typeof newData.book === 'string') updateBasket.book = newData.book
+    if (typeof newData.chapter === 'number')
+      updateBasket.chapter = newData.chapter
+    if (typeof newData.version === 'string')
+      updateBasket.version = newData.version
+    if (typeof newData.text === 'string') updateBasket.text = newData.text
     const updateBible = await Bible.findOneAndUpdate(
       {
-        ...filter,
+        version: filter.version.toUpperCase(),
+        chapter: filter.chapter,
+        book: filter.book.toUpperCase(),
+        verse: filter.verse,
       },
-      {
-        $set: {
-          text: newData.text,
-          verse: newData.verse,
-          chapter: newData.chapter,
-          version: newData.version,
-        },
-      },
+        updateBasket,
       { new: true, runValidators: true }
     )
+ 
 
     return updateBible
+  }
+
+  getBible = async (
+    filter: Partial<bibleUploadPayloadType>
+  ): Promise<Promise<bibleUploadPayloadType>[]> => {
+    const basket: Partial<bibleUploadPayloadType> = { version: filter.version }
+
+    if (filter.book) basket.book = filter.book
+    if (filter.chapter && filter.chapter !== 0)
+      basket.chapter = Number(filter.chapter)
+    if (filter.verse) basket.verse = Number(filter.verse)
+
+    const bible = await Bible.find(basket).sort('verse')
+    return bible
+  }
+
+  deleteBible = async (
+    filter: Partial<bibleUploadPayloadType>
+  ): Promise<string> => {
+    const basket: Partial<bibleUploadPayloadType> = { version: filter.version }
+
+    if (filter.book) basket.book = filter.book
+    if (filter.chapter) basket.chapter = Number(filter.chapter)
+    if (filter.verse) basket.verse = Number(filter.verse)
+    const deleteBible = await Bible.deleteMany(basket)
+    return 'Bible Deleted'
   }
 
   countTotalTranslations = async (): Promise<number> => {
@@ -116,6 +144,18 @@ class BibleServices {
     ])
 
     return result[0]?.totalUniqueVerses || 0
+  }
+  textSearch = async (
+    searchTerm: string
+  ): Promise<Promise<bibleUploadPayloadType>[]> => {
+    const results = await Bible.find(
+      { $text: { $search: searchTerm } },
+      { score: { $meta: 'textScore' } }
+    )
+      .sort({ score: { $meta: 'textScore' } })
+      .limit(10)
+
+    return results
   }
 }
 const bibleServices = new BibleServices()

@@ -2,5 +2,7 @@ const {connect} = require('mongoose');
 
 
 export const connectDB = async () => {
-  return await connect(process.env.MONGO_URI)
+  return await connect(process.env.MONGO_URI, {
+    autoIndex: true
+  })
 }

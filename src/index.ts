@@ -26,7 +26,6 @@ app.get('/', (req: Request, res: Response) => {
   res.send('Welcome to church application api')
 })
 // app.use('/dashboard', )
-console.log(typeof bibleRouter)
 app.use('/api/v1/auth', authRouter )
 app.use('/api/v1/bible', bibleRouter )
 

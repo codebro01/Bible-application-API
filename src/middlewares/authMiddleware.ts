@@ -14,7 +14,6 @@ const authMiddleware = (
   next: NextFunction
 ) => {
   const { token } = req?.cookies
-  console.log('token', token)
   if (!token)
     return next(new NotAuthenticatedError('No Token provided', 'UNAUTHORIZED'))
 
@@ -28,7 +27,6 @@ const authMiddleware = (
     const { username, email, role, id } = decoded
     req.user = { username, email, role, id };
 
-    console.log('req.user', req.user)
     return next()
   } catch (err) {
     return next(
