@@ -1,4 +1,5 @@
 require('dotenv').config()
+require('module-alias/register')
 const { connectDB } = require('@src/db')
 import type { Request, Response } from 'express'
 const express = require('express')
