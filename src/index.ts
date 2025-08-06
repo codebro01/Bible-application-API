@@ -13,11 +13,13 @@ const {authRouter, bibleRouter} = require('@src/routes')
 
 app.use(
   cors({
-    origin: ['http://localhost:3500'],
+    origin: ['http://localhost:3500', 'http://localhost:3000'],
     credentials: true,
     methods: ['POST', 'PATCH', 'DELETE', 'GET'],
   })
 )
+
+
 
 app.use(express.json())
 app.use(cookieParse());

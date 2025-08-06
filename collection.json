@@ -1,0 +1,370 @@
+{
+	"info": {
+		"_postman_id": "c72c1a62-7510-4be5-a7b1-3ad915bfa773",
+		"name": "Bible Aplication API Copy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32012842",
+		"_collection_link": "https://www.postman.com/codebro01/workspace/bible-webapp-api/collection/32012842-c72c1a62-7510-4be5-a7b1-3ad915bfa773?action=share&source=collection_link&creator=32012842"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"admin\",\r\n  \"email\": \"admin@example.com\",\r\n  \"password\": \"123456\",\r\n  \"role\": \"admin\",\r\n  \"isVerified\": true\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{church_app_api}}/api/v1/auth/signup",
+							"host": [
+								"{{church_app_api}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"admin\", \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{church_app_api}}/api/v1/auth/login",
+							"host": [
+								"{{church_app_api}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"login"
+							]
+						},
+						"description": "## Login Endpoint\n\nThis endpoint is used to authenticate users in the application. It allows users to log in by providing their credentials.\n\n### Request\n\n- **Method:** POST\n    \n- **Endpoint:** `{{church_app_api}}/api/v1/auth/login`\n    \n- **Request Body:**\n    \n    - `username` (string): The username of the user attempting to log in.\n        \n    - `password` (string): The password associated with the username.\n        \n\n### Response\n\n- **Status Code:** 200\n    \n- **Content-Type:** application/json\n    \n- **Response Body:**\n    \n    - `message` (string): A message indicating the result of the login attempt. The message will be empty on a successful login.\n        \n\n### Example Request\n\n``` json\n{\n  \"username\": \"admin\",\n  \"password\": \"123456\"\n}\n\n ```\n\n### Example Response\n\n``` json\n{\n  \"message\": \"\"\n}\n\n ```\n\nThis endpoint will return a 200 status code upon successful authentication, indicating that the user has logged in successfully."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "bible",
+			"item": [
+				{
+					"name": "uploadBible",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "document",
+									"type": "file",
+									"src": "/C:/Users/CODEBRO/Documents/TITUS RPV.docx"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{church_app_api}}/api/v1/bible",
+							"host": [
+								"{{church_app_api}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bible"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "editBible",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"filter\": {\r\n        \"version\": \"PEBT\",\r\n        \"chapter\": 2,\r\n        \"verse\": 1, \r\n        \"book\": \"titus\"\r\n    },\r\n    \"newData\": {\r\n        \"text\": \"O Lord Save me!!!!!!!!!!!!!\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{church_app_api}}/api/v1/bible",
+							"host": [
+								"{{church_app_api}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bible"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteBible",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"filter\": {\r\n        \"version\": \"PEBT\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{church_app_api}}/api/v1/bible",
+							"host": [
+								"{{church_app_api}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bible"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getBible",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{church_app_api}}/api/v1/bible?version=PEBT&chapter=1&book=titus",
+							"host": [
+								"{{church_app_api}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bible"
+							],
+							"query": [
+								{
+									"key": "version",
+									"value": "PEBT"
+								},
+								{
+									"key": "chapter",
+									"value": "1"
+								},
+								{
+									"key": "book",
+									"value": "titus"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "totalTranslations",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{church_app_api}}/api/v1/bible/total-translations",
+							"host": [
+								"{{church_app_api}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bible",
+								"total-translations"
+							],
+							"query": [
+								{
+									"key": "version",
+									"value": "PEBT",
+									"disabled": true
+								},
+								{
+									"key": "chapter",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "book",
+									"value": "titus",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "totalVerses",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{church_app_api}}/api/v1/bible/total-verses",
+							"host": [
+								"{{church_app_api}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bible",
+								"total-verses"
+							],
+							"query": [
+								{
+									"key": "version",
+									"value": "PEBT",
+									"disabled": true
+								},
+								{
+									"key": "chapter",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "book",
+									"value": "titus",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "totalBooks",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{church_app_api}}/api/v1/bible/total-books",
+							"host": [
+								"{{church_app_api}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bible",
+								"total-books"
+							],
+							"query": [
+								{
+									"key": "version",
+									"value": "PEBT",
+									"disabled": true
+								},
+								{
+									"key": "chapter",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "book",
+									"value": "titus",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "textSearch",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{church_app_api}}/api/v1/bible/search?searchTerm=hope  immortality",
+							"host": [
+								"{{church_app_api}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bible",
+								"search"
+							],
+							"query": [
+								{
+									"key": "searchTerm",
+									"value": "hope  immortality"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
