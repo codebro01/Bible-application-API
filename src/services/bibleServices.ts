@@ -85,6 +85,9 @@ class BibleServices {
         updateBasket,
       { new: true, runValidators: true }
     )
+
+        if (!updateBible) throw (new BadRequestError('Error occured while uploading bible, please try again!'))
+
  
 
     return updateBible

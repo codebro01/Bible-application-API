@@ -13,7 +13,12 @@ const {authRouter, bibleRouter} = require('@src/routes')
 
 app.use(
   cors({
-    origin: ['http://localhost:3500', 'http://localhost:3000'],
+    origin: [
+      'https://pidgin-bible-app.netlify.app',
+      'https://www.pidgin-bible-app.netlify.app',,
+      'http://localhost:3500',
+      'http://localhost:3000',
+    ],
     credentials: true,
     methods: ['POST', 'PATCH', 'DELETE', 'GET'],
   })
