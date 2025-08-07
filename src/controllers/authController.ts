@@ -24,8 +24,8 @@ const signup = async (req: Request, res: Response, next: NextFunction) => {
         if (!user) return next(new BadRequestError('Could not signup user'))
 
     const tokenUser = createTokenUser(user)
-    attachCookieToResp(res, { user: tokenUser })
-    res.status(201).json({ message: 'User created' })
+    const token = attachCookieToResp(res, { user: tokenUser })
+    res.status(201).json({ message: 'User created', token })
   } catch (error) {
     return next(error)
   }
@@ -43,13 +43,12 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
       return
     }
     const user = await UserServices.loginUser(validatedInputs.data)
-    console.log(user)
 
     if(!user) return next(new BadRequestError('Invalid credentials'))
 
     const tokenUser = createTokenUser(user)
-    attachCookieToResp(res, { user: tokenUser })
-    res.status(200).json({ message: 'User loggin in' })
+   const token =  attachCookieToResp(res, { user: tokenUser })
+    res.status(200).json({ message: 'User loggin in', token})
   } catch (error) {
     return next(error)
   }

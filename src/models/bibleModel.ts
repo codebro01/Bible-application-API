@@ -1,4 +1,4 @@
-import { version } from "mongoose"
+import { version } from 'mongoose'
 
 const mongoose = require('mongoose')
 
@@ -28,6 +28,10 @@ const bibleSchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true,
+    enum: {
+      values: ['RPV', 'LSV'],
+      message: 'Invalid version. Accepted versions are: RPV, LSV',
+    },
   },
 })
 
