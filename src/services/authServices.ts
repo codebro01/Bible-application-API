@@ -8,6 +8,10 @@ const {
 
 class AuthServices {
   async createUser(payload: CreateUserPayload) {
+
+
+    User.syncIndexes()
+
     const user = await User.create({ ...payload })
     if (!user) {
       throw new Error('User creation failed') // Let controller handle the error
